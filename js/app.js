@@ -1,283 +1,71 @@
 'use strict';
 
+var cookieStores = [];
+// We need an array to hold the store hours.
 var hours = ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm'];
 
-var pikePlace = {
-  minCustomersPerHour: 23,
-  maxCustomersPerHour: 65,
-  avgCookiesPerCustomer: 6.3,
-  customersEachHour: [],
-  calcCustomersEachHour: function() {
-    // we are seeking a random number between/including min/max
-    // we want to fill an array of those numbers, once per hour
-    for (var i = 0; i < hours.length; i++) {
-      var oneHourCustomers = Math.floor(Math.random() * (this.maxCustomersPerHour - this.minCustomersPerHour + 1)) + this.minCustomersPerHour;
-      // console.log(oneHourCustomers, 'hourly customers');
-      this.customersEachHour.push(oneHourCustomers);
-    }
-  },
-  cookiesSoldEachHour: [],
-  calcCookiesSoldEachHour: function() {
-    this.calcCustomersEachHour();
-    // We need to multiply the customers each hour
-    // by the average cookies per customer to generate
-    // the cookies sold each hour
-    for (var i = 0; i < hours.length; i++) {
-      var hourlyCookies = Math.ceil(this.customersEachHour[i] * this.avgCookiesPerCustomer);
-      // console.log(hourlyCookies, 'hourly cookies');
-      this.cookiesSoldEachHour.push(hourlyCookies);
-      // running total - incoming running total + next hour
-      // total = total + hour
-      // total += hour
-      this.totalCookiesSoldPerDay += hourlyCookies;
-    }
-  },
-  totalCookiesSoldPerDay: 0,
-  locationName: 'First and Pike',
-  render: function() {
-    this.calcCookiesSoldEachHour();
-    // iterate through the array
-    for (var i = 0; i < hours.length; i++) {
-      // console.log(this.cookiesSoldEachHour[i], 'hourly cookies from inside render method');
-      // create an element
-      var liEl = document.createElement('li');
-      // give it content
-      // "6am: 16 cookies"
-      liEl.textContent = hours[i] + ': ' + this.cookiesSoldEachHour[i] + ' cookies';
-      // append it to parent
-      var parentUl = document.getElementById('pike');
-      parentUl.appendChild(liEl);
-    }
-    liEl = document.createElement('li');
-    // "Total: 657 cookies"
-    liEl.className = 'total';
-    liEl.textContent = 'Total: ' + this.totalCookiesSoldPerDay + ' cookies';
-    parentUl.appendChild(liEl);
+// We need a table 
+var cookieTable = document.getElementById('cookie-table');
+
+// We need a constructor to hold the information for the Cookie Stands.
+// We just need one function of the following: customersEachHour (calcCustomersEachHour), cookiesSoldEachHour 
+// (calcCookiesSoldEachHour), 
+function CookieStand(locationName, minCustomersPerHour, maxCustomersPerHour, avgCookiesPerCustomer) {
+  this.locationName = locationName;
+  this.minCustomersPerHour = minCustomersPerHour;
+  this.maxCustomersPerHour = maxCustomersPerHour;
+  this.avgCookiesPerCustomer = avgCookiesPerCustomer;
+  this.customersEachHour = [];
+  this.cookiesSoldEachHour = [];
+  this.totalCookiesSoldPerDay = 0;
+  cookieStores.push(this);
+}
+
+// Figure out how many cookies are sold each hour
+// by calculating the number of customers per hour
+CookieStand.prototype.calcCustomersEachHour = function() {
+  // Need random numbers to fill the array.
+  for (var i = 0; i < hours.length; i++) {
+    var oneHourCustomers = Math.floor(Math.random() * (this.maxCustomersPerHour - this.minCustomersPerHour + 1)) + this.minCustomersPerHour;
+    // console.log(oneHourCustomers, 'hourly customers');
+    this.customersEachHour.push(oneHourCustomers);
   }
-}; 
-
-pikePlace.render();
-
-var seatac = {
-  minCustomersPerHour: 3,
-  maxCustomersPerHour: 24,
-  avgCookiesPerCustomer: 1.2,
-  customersEachHour: [],
-  calcCustomersEachHour: function() {
-    // we are seeking a random number between/including min/max
-    // we want to fill an array of those numbers, once per hour
-    for (var i = 0; i < hours.length; i++) {
-      var oneHourCustomers = Math.floor(Math.random() * (this.maxCustomersPerHour - this.minCustomersPerHour + 1)) + this.minCustomersPerHour;
-      // console.log(oneHourCustomers, 'hourly customers');
-      this.customersEachHour.push(oneHourCustomers);
-    }
-  },
-  cookiesSoldEachHour: [],
-  calcCookiesSoldEachHour: function() {
-    this.calcCustomersEachHour();
-    // We need to multiply the customers each hour
-    // by the average cookies per customer to generate
-    // the cookies sold each hour
-    for (var i = 0; i < hours.length; i++) {
-      var hourlyCookies = Math.ceil(this.customersEachHour[i] * this.avgCookiesPerCustomer);
-      // console.log(hourlyCookies, 'hourly cookies');
-      this.cookiesSoldEachHour.push(hourlyCookies);
-      // running total - incoming running total + next hour
-      // total = total + hour
-      // total += hour
-      this.totalCookiesSoldPerDay += hourlyCookies;
-    }
-  },
-  totalCookiesSoldPerDay: 0,
-  locationName: 'SeaTac Airport',
-  render: function() {
-    this.calcCookiesSoldEachHour();
-    // iterate through the array
-    for (var i = 0; i < hours.length; i++) {
-      // console.log(this.cookiesSoldEachHour[i], 'hourly cookies from inside render method');
-      // create an element
-      var liEl = document.createElement('li');
-      // give it content
-      // "6am: 16 cookies"
-      liEl.textContent = hours[i] + ': ' + this.cookiesSoldEachHour[i] + ' cookies';
-      // append it to parent
-      var parentUl = document.getElementById('seatac');
-      parentUl.appendChild(liEl);
-    }
-    liEl = document.createElement('li');
-    // "Total: 657 cookies"
-    liEl.className = 'total';
-    liEl.textContent = 'Total: ' + this.totalCookiesSoldPerDay + ' cookies';
-    parentUl.appendChild(liEl);
+},
+CookieStand.prototype.calcCookiesSoldEachHour = function() {
+  this.calcCustomersEachHour();
+  // We need to multiply the customers each hour
+  // by the average cookies per customer to generate 
+  // the cookies sold each hour.
+  for (var i = 0; i < hours.length; i++) {
+    var hourlyCookies = Math.ceil(this.customersEachHour[i] * this.avgCookiesPerCustomer);
+    // console.log(hourlyCookies, 'hourly cookies');
+    this.cookiesSoldEachHour.push(hourlyCookies);
+    // running total - incoming running total + next hour
+    // total = total + hour
+    // total += hour
+    this.totalCookiesSoldPerDay += hourlyCookies;
   }
-}; 
+}
 
-seatac.render();
+// Invoke the functions. This will be one of the final steps.
+new CookieStand('pikePlace', 23, 65, 6.3);
+new CookieStand('seatac', 3, 24, 1.2);
+new CookieStand('seattleCenter', 11, 38, 3.7);
+new CookieStand('capitolhill', 20, 38, 2.3);
+new CookieStand('alki', 2, 16, 4.6);
 
-var seattlecenter = {
-  minCustomersPerHour: 11,
-  maxCustomersPerHour: 38,
-  avgCookiesPerCustomer: 3.7,
-  customersEachHour: [],
-  calcCustomersEachHour: function() {
-    // we are seeking a random number between/including min/max
-    // we want to fill an array of those numbers, once per hour
-    for (var i = 0; i < hours.length; i++) {
-      var oneHourCustomers = Math.floor(Math.random() * (this.maxCustomersPerHour - this.minCustomersPerHour + 1)) + this.minCustomersPerHour;
-      // console.log(oneHourCustomers, 'hourly customers');
-      this.customersEachHour.push(oneHourCustomers);
-    }
-  },
-  cookiesSoldEachHour: [],
-  calcCookiesSoldEachHour: function() {
-    this.calcCustomersEachHour();
-    // We need to multiply the customers each hour
-    // by the average cookies per customer to generate
-    // the cookies sold each hour
-    for (var i = 0; i < hours.length; i++) {
-      var hourlyCookies = Math.ceil(this.customersEachHour[i] * this.avgCookiesPerCustomer);
-      // console.log(hourlyCookies, 'hourly cookies');
-      this.cookiesSoldEachHour.push(hourlyCookies);
-      // running total - incoming running total + next hour
-      // total = total + hour
-      // total += hour
-      this.totalCookiesSoldPerDay += hourlyCookies;
-    }
-  },
-  totalCookiesSoldPerDay: 0,
-  locationName: 'Seattle Center',
-  render: function() {
-    this.calcCookiesSoldEachHour();
-    // iterate through the array
-    for (var i = 0; i < hours.length; i++) {
-      // console.log(this.cookiesSoldEachHour[i], 'hourly cookies from inside render method');
-      // create an element
-      var liEl = document.createElement('li');
-      // give it content
-      // "6am: 16 cookies"
-      liEl.textContent = hours[i] + ': ' + this.cookiesSoldEachHour[i] + ' cookies';
-      // append it to parent
-      var parentUl = document.getElementById('seattlecenter');
-      parentUl.appendChild(liEl);
-    }
-    liEl = document.createElement('li');
-    // "Total: 657 cookies"
-    liEl.className = 'total';
-    liEl.textContent = 'Total: ' + this.totalCookiesSoldPerDay + ' cookies';
-    parentUl.appendChild(liEl);
-  }
-}; 
+for (var i=0; i < cookieStores.length; i++) {
+  cookieStores[i].calcCookiesSoldEachHour();
+}
+console.log('my stores ====> ', cookieStores);
 
-seattlecenter.render();
+// We need to create a table.
 
-var capitolhill = {
-  minCustomersPerHour: 20,
-  maxCustomersPerHour: 38,
-  avgCookiesPerCustomer: 2.3,
-  customersEachHour: [],
-  calcCustomersEachHour: function() {
-    // we are seeking a random number between/including min/max
-    // we want to fill an array of those numbers, once per hour
-    for (var i = 0; i < hours.length; i++) {
-      var oneHourCustomers = Math.floor(Math.random() * (this.maxCustomersPerHour - this.minCustomersPerHour + 1)) + this.minCustomersPerHour;
-      // console.log(oneHourCustomers, 'hourly customers');
-      this.customersEachHour.push(oneHourCustomers);
-    }
-  },
-  cookiesSoldEachHour: [],
-  calcCookiesSoldEachHour: function() {
-    this.calcCustomersEachHour();
-    // We need to multiply the customers each hour
-    // by the average cookies per customer to generate
-    // the cookies sold each hour
-    for (var i = 0; i < hours.length; i++) {
-      var hourlyCookies = Math.ceil(this.customersEachHour[i] * this.avgCookiesPerCustomer);
-      // console.log(hourlyCookies, 'hourly cookies');
-      this.cookiesSoldEachHour.push(hourlyCookies);
-      // running total - incoming running total + next hour
-      // total = total + hour
-      // total += hour
-      this.totalCookiesSoldPerDay += hourlyCookies;
-    }
-  },
-  totalCookiesSoldPerDay: 0,
-  locationName: 'Capitol Hill',
-  render: function() {
-    this.calcCookiesSoldEachHour();
-    // iterate through the array
-    for (var i = 0; i < hours.length; i++) {
-      // console.log(this.cookiesSoldEachHour[i], 'hourly cookies from inside render method');
-      // create an element
-      var liEl = document.createElement('li');
-      // give it content
-      // "6am: 16 cookies"
-      liEl.textContent = hours[i] + ': ' + this.cookiesSoldEachHour[i] + ' cookies';
-      // append it to parent
-      var parentUl = document.getElementById('capitolhill');
-      parentUl.appendChild(liEl);
-    }
-    liEl = document.createElement('li');
-    // "Total: 657 cookies"
-    liEl.className = 'total';
-    liEl.textContent = 'Total: ' + this.totalCookiesSoldPerDay + ' cookies';
-    parentUl.appendChild(liEl);
-  }
-}; 
+// The top row needs to autopopulate with hours
+// Rows 2-7 needs to populate with the data from the CookieStand data
+// We want the final row to populate the sum of the hourly totals for all the stores
 
-capitolhill.render();
-
-var alki = {
-  minCustomersPerHour: 2,
-  maxCustomersPerHour: 16,
-  avgCookiesPerCustomer: 4.6,
-  customersEachHour: [],
-  calcCustomersEachHour: function() {
-    // we are seeking a random number between/including min/max
-    // we want to fill an array of those numbers, once per hour
-    for (var i = 0; i < hours.length; i++) {
-      var oneHourCustomers = Math.floor(Math.random() * (this.maxCustomersPerHour - this.minCustomersPerHour + 1)) + this.minCustomersPerHour;
-      // console.log(oneHourCustomers, 'hourly customers');
-      this.customersEachHour.push(oneHourCustomers);
-    }
-  },
-  cookiesSoldEachHour: [],
-  calcCookiesSoldEachHour: function() {
-    this.calcCustomersEachHour();
-    // We need to multiply the customers each hour
-    // by the average cookies per customer to generate
-    // the cookies sold each hour
-    for (var i = 0; i < hours.length; i++) {
-      var hourlyCookies = Math.ceil(this.customersEachHour[i] * this.avgCookiesPerCustomer);
-      // console.log(hourlyCookies, 'hourly cookies');
-      this.cookiesSoldEachHour.push(hourlyCookies);
-      // running total - incoming running total + next hour
-      // total = total + hour
-      // total += hour
-      this.totalCookiesSoldPerDay += hourlyCookies;
-    }
-  },
-  totalCookiesSoldPerDay: 0,
-  locationName: 'Alki',
-  render: function() {
-    this.calcCookiesSoldEachHour();
-    // iterate through the array
-    for (var i = 0; i < hours.length; i++) {
-      // console.log(this.cookiesSoldEachHour[i], 'hourly cookies from inside render method');
-      // create an element
-      var liEl = document.createElement('li');
-      // give it content
-      // "6am: 16 cookies"
-      liEl.textContent = hours[i] + ': ' + this.cookiesSoldEachHour[i] + ' cookies';
-      // append it to parent
-      var parentUl = document.getElementById('alki');
-      parentUl.appendChild(liEl);
-    }
-    liEl = document.createElement('li');
-    // "Total: 657 cookies"
-    liEl.className = 'total';
-    liEl.textContent = 'Total: ' + this.totalCookiesSoldPerDay + ' cookies';
-    parentUl.appendChild(liEl);
-  }
-}; 
-
-alki.render();
+// We want column 1 to be populated with the location names.
+// we want columns 2-15 to populate with the number of cookies sold for each hour.
+// We want column 16 (the final column) to populate the sum total cookies for the
+// day for each location. sum (c2-c15)
