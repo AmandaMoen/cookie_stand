@@ -2,13 +2,34 @@
 <html>
 
 <head>
+  <meta charset="utf-8">
   <title>Pat's Salmon Cookies Sales</title>
   <link rel="stylesheet" href="css/style.css">
   <link href="https://fonts.googleapis.com/css?family=Passion+One" rel="stylesheet">
 </head>
 
 <body>
-  <h1>Pat's Salmon Cookies</h1>
+  <h1>Pat's Salmon Cookies: Sales Data</h1>
+
+  <form id="add-location">
+    <fieldset>
+      <legend>Add a new store to the table:</legend>
+
+      <label for="storeName">Location Name</label>
+      <input name="storeName" type="text"></input>
+
+      <label for="min">Minimum Customers per Hour</label>
+      <input name="min" type="number"></input>
+
+      <label for="max">Maximum Customers per Hour</label>
+      <input name="max" type="number"></input>
+
+      <label for="avg">Average Cookies per Sale</label>
+      <input name="avg" type="text"></input>
+
+      <button type="submit">Click here to add</button>
+    </fieldset>
+  </form>
 
   <!-- <h2>Pike Place Market</h2>
   <ul id="pike"></ul>
@@ -25,6 +46,7 @@
   <h2>Alki</h2>
   <ul id="alki"></ul>
  -->
+  <br>
   <table id="cookie-table">
     
   </table>
