@@ -19,6 +19,14 @@ User Stories (MVP):
 To Do: 
 1. Implement a Constructor Function. 
 2. Replace the lists with a table.
+// The top row needs to autopopulate with hours
+// Rows 2-7 needs to populate with the data from the CookieStand data
+// We want the final row to populate the sum of the hourly totals for all the stores
+
+// We want column 1 to be populated with the location names.
+// we want columns 2-15 to populate with the number of cookies sold for each hour.
+// We want column 16 (the final column) to populate the sum total cookies for the
+// day for each location. sum (c2-c15)
 
 User Stories (MVP):
 * As a developer, I want to implement a constructor function, so that I can reuse code and eliminate much of the duplication in my JavaScript
