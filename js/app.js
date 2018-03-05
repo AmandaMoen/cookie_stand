@@ -138,6 +138,7 @@ function makeFooterRow() {
 }
 
 function createTable() {
+  cookieTable.innerHTML = '';
   makeHeaderRow();
   for (var i = 0; i < CookieStand.all.length; i++) {
     CookieStand.all[i].render();
