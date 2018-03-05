@@ -31,3 +31,9 @@ To Do:
 User Stories (MVP):
 * As a developer, I want to implement a constructor function, so that I can reuse code and eliminate much of the duplication in my JavaScript
 * As a user, I want cookie sales data represented in tables rather than lists
+
+"Pat's Salmon Cookies-Day 3 Lab Assignment"
+
+User Stories (MVP):
+* Today you will be adding a form to your existing cookie stand project so that you can add new locations to the table by simply inputting their information with the form.
+
