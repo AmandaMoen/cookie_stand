@@ -25,6 +25,12 @@ nav li {
 }
 
 /* Main/Intro section */
+body {
+	font-family: bree serif, serif;
+  position: relative;
+  background-image: url("../img/fish.jpg");
+  background-repeat: no-repeat;
+}
 
 h1 {
   font-family: Pacifico, cursive;
@@ -46,10 +52,6 @@ h2 {
   color: salmon;
 }
 
-body {
-	font-family: bree serif, serif;
-}
-
 #cookie-cutter, #salmon-shirt, #salmon-cookie {
   border: 5px solid #fa8072;
   display: inline-block;
@@ -60,6 +62,13 @@ body {
   width: 30%;
   float: left;
   margin: 10px;
+}
+
+footer {
+  width: 50%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* For the table*/
