@@ -46,3 +46,8 @@ To Do:
 4. Your public-facing page mockup in index.html should have all of the things you'd expect such a page to have for such a business: locations with addresses, hours open, contact information, and so on. Just make up versions of these things since this is not a real business, of course.
 5. You can also mock up references to (either links or little sections on the index page) for things like About Us (company history and mission), Merchandise (sales of t-shirts, mugs, stickers, etc.), links to salmon events like the Salmon Days in Issaquah, etc.
 6. Apply a similar style to the sales.html page.
+
+"Pat's Salmon Cookies-Day 5 Lab Assignment"
+The MVP version of the project involves completion of the functionality and styling of the index.html and data.html pages.
+
+One more thing: Use a gh-pages branch to deploy it!
