@@ -1,0 +1,38 @@
+* {
+  font-family: helvetica, sans-serif;
+}
+
+h1 {
+  font-family: Passion One, cursive;
+  color: salmon;
+}
+/* For the table*/
+td {
+  background-color: salmon;
+  padding: 5px;
+  border-radius: 8px;
+  border: 1px solid black;
+  font-size: 1.2em;
+}
+
+th {
+  background-color: gray;
+  color: white;
+  padding: 2px;
+  border-radius: 8px;
+  font-size: 1.2em;
+
+}
+
+label {
+  color: salmon;
+}
+
+legend {
+  color: salmon;
+  font-family: 'Righteous', cursive;
+}
+
+.total {
+  font-weight: bold;
+}
