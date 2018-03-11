@@ -48,6 +48,7 @@ To Do:
 6. Apply a similar style to the sales.html page.
 
 "Pat's Salmon Cookies-Day 5 Lab Assignment"
+
 The MVP version of the project involves completion of the functionality and styling of the index.html and data.html pages.
 
 One more thing: Use a gh-pages branch to deploy it!
